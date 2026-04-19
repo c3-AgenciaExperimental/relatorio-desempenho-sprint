@@ -1,0 +1,22 @@
+# LaTeX auxiliary files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.pdf
+*.synctex.gz
+*.out
+*.toc
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
+*.lof
+*.lot
+*.run.xml
+*-blx.bib
+*.gz
+
+# VS Code
+.vscode/
