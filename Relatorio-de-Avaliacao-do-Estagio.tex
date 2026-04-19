@@ -3,7 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[brazilian]{babel}
 \usepackage{geometry}
-\geometry{a4paper, left=2.2cm, right=2.2cm, top=2cm, bottom=2cm}
+\geometry{a4paper, left=1.8cm, right=1.8cm, top=1.5cm, bottom=1.5cm}
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{setspace}
@@ -22,111 +22,142 @@
 \definecolor{DeepNavy}{RGB}{0, 31, 63}
 \definecolor{Graphite}{RGB}{60, 60, 60}
 \definecolor{SubtleGray}{RGB}{245, 245, 247}
-\definecolor{LineGray}{RGB}{200, 200, 200}
+\definecolor{LineGray}{RGB}{220, 220, 225}
 
-% Section Styling (Small Caps + Minimalist Line)
+% Custom Card Style (Dashboard Widgets)
+\tcbset{
+    executivecard/.style={
+        enhanced,
+        arc=2pt,
+        boxrule=0.5pt,
+        colframe=LineGray,
+        colback=white,
+        boxsep=4pt,
+        left=8pt, right=8pt, top=10pt, bottom=10pt,
+        shadow={1pt}{-1pt}{0pt}{SubtleGray!80!black!20}
+    }
+}
+
+% Section Styling (Internal to cards)
 \titleformat{\section}
-  {\scshape\bfseries\Large\color{DeepNavy}}
+  {\scshape\bfseries\large\color{DeepNavy}}
   {}{0em}
   {}
-  [\vspace{-0.2ex}\color{DeepNavy}\titlerule]
+  [\vspace{-0.5ex}\color{DeepNavy!30}\titlerule]
 
-\titlespacing*{\section}{0pt}{1.5ex}{1ex}
+\titlespacing*{\section}{0pt}{0ex}{1.5ex}
 
 % Custom Checkbox
-\newcommand{\checkbox}{\scalebox{1.5}{\color{Graphite}$\square$}}
+\newcommand{\checkbox}{\scalebox{1.5}{\color{Graphite!50}$\square$}}
 
 \pagestyle{empty}
-
-% Table configuration
 \renewcommand{\tabularxcolumn}[1]{m{#1}}
 
 \begin{document}
 
-% --- CORPORATE LETTERHEAD ---
-\noindent
-\begin{tabularx}{\textwidth}{@{}X r@{}}
-    {\huge \textbf{\color{DeepNavy}Agência Experimental}} & \textbf{\scshape Sprint nº:} \makebox[1.2cm]{\hrulefill} \\
-    {\color{Graphite}\footnotesize RELATÓRIO EXECUTIVO DE PERFORMANCE} & \textbf{\scshape Período:} \makebox[3.5cm]{\hrulefill} \\
-\end{tabularx}
+% --- PREMIUM HEADER ---
+\begin{tcolorbox}[
+    enhanced,
+    arc=0pt,
+    outer arc=0pt,
+    boxrule=0pt,
+    colback=DeepNavy,
+    coltext=white,
+    left=15pt, right=15pt, top=15pt, bottom=15pt,
+    underlay={
+        \begin{tcbclipinterior}
+            \fill[DeepNavy!95!black] (0,0) rectangle (1.5,10); % Accent bar
+        \end{tcbclipinterior}
+    }
+]
+    \begin{tabularx}{\textwidth}{@{}X r@{}}
+        {\huge \textbf{Agência Experimental}} & \textbf{\scshape Sprint nº:} \makebox[1.2cm]{\color{white}\hrulefill} \\
+        {\footnotesize RELATÓRIO EXECUTIVO DE PERFORMANCE} & \textbf{\scshape Período:} \makebox[3.5cm]{\color{white}\hrulefill} \\
+    \end{tabularx}
+\end{tcolorbox}
 
 \vspace{0.4cm}
-\hrule height 0.8pt \color{DeepNavy}
-\vspace{0.8cm}
 
-% --- IDENTIFICATION GRID ---
-\noindent
-\begin{tabularx}{\textwidth}{@{}l X l X@{}}
-    \textbf{\scshape Estagiário(a):} & \hrulefill & \textbf{\scshape Mesa/Projeto:} & \hrulefill \\
-\end{tabularx}
+% --- IDENTIFICATION DATA ---
+\begin{tcolorbox}[executivecard, top=5pt, bottom=5pt]
+    \scriptsize
+    \begin{tabularx}{\textwidth}{@{}l X l X@{}}
+        \textbf{\scshape Estagiário(a):} & \hrulefill & \textbf{\scshape Mesa/Projeto:} & \hrulefill \\
+    \end{tabularx}
+\end{tcolorbox}
 
-\vspace{1.0cm}
+\vspace{0.3cm}
 
-% --- SECTION 1: EVALUATION ---
-\section{1. Avaliação de Competências}
+% --- SECTION 1: COMPETENCIES CARD ---
+\begin{tcolorbox}[executivecard]
+    \section{1. Avaliação de Competências}
+    
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{X c c c c c}
+    \rowcolor{DeepNavy}
+    \textbf{\color{white}\footnotesize Critérios de Avaliação} & \textbf{\tiny\color{white}EXCELENTE} & \textbf{\tiny\color{white}MUITO BOM} & \textbf{\tiny\color{white}BOM} & \textbf{\tiny\color{white}REGULAR} & \textbf{\tiny\color{white}INSUF.} \\
+    \rowcolor{DeepNavy}
+    & \tiny\color{DeepNavy!20}(10 pts) & \tiny\color{DeepNavy!20}(08 pts) & \tiny\color{DeepNavy!20}(06 pts) & \tiny\color{DeepNavy!20}(04 pts) & \tiny\color{DeepNavy!20}(00 pts) \\
+    \midrule
+    \footnotesize Prática e Aplicação de Conhecimento & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
+    \footnotesize Capacidade de Análise Crítica & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
+    \footnotesize Eficácia das Intervenções & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
+    \footnotesize Uso de Instrumentos e Materiais & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
+    \footnotesize Execução do Plano de Atividades & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
+    \footnotesize Qualidade na Elaboração de Relatórios & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
+    \rowcolor{SubtleGray}
+    \footnotesize \textbf{Postura e Atitude Profissional} & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
+    \bottomrule
+    \end{tabularx}
+\end{tcolorbox}
 
-\vspace{0.4cm}
-\noindent
-\renewcommand{\arraystretch}{1.6}
-\begin{tabularx}{\textwidth}{X c c c c c}
-\toprule
-\rowcolor{SubtleGray}
-\textbf{Critérios de Avaliação} & \textbf{\tiny EXCELENTE} & \textbf{\tiny MUITO BOM} & \textbf{\tiny BOM} & \textbf{\tiny REGULAR} & \textbf{\tiny INSUFICIENTE} \\
-\rowcolor{SubtleGray}
-& \tiny (10 pts) & \tiny (08 pts) & \tiny (06 pts) & \tiny (04 pts) & \tiny (00 pts) \\
-\midrule
-Articulação, aplicação e atualização do conhecimento teórico com a prática & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
-Capacidade de análise crítica & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
-Intervenções adequadas & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
-Uso adequado dos instrumentos, materiais e/ou equipamentos & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
-Desenvolvimento do plano de atividades & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
-Elaboração de relatórios & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
-\addlinespace[0.2cm]
-\rowcolor{SubtleGray}
-\textbf{Postura e Atitude Profissional} & \checkbox & \checkbox & \checkbox & \checkbox & \checkbox \\
-\bottomrule
-\end{tabularx}
+\vspace{0.3cm}
 
-\vspace{1.0cm}
-
-% --- SCORE KPI BADGE ---
+% --- PERFORMANCE SCORE WIDGET ---
 \begin{center}
     \begin{tcolorbox}[
-        enhanced, width=9cm, arc=0pt, boxrule=0.8pt, 
+        enhanced, width=9.5cm, arc=4pt, boxrule=1pt, 
         colback=white, colframe=DeepNavy,
-        shadow={2pt}{-2pt}{0pt}{SubtleGray}
+        shadow={2pt}{-2pt}{0pt}{SubtleGray},
+        halign=center
     ]
-        \centering
         {\scshape \small Performance Score Final} \\
-        \vspace{0.3cm}
-        {\Huge \textbf{\hrulefill \, / 10}}
-        \par \vspace{0.2cm} \tiny \color{Graphite} (CÁLCULO: SOMA DOS PONTOS $\div$ 7)
+        \vspace{0.2cm}
+        {\Huge \textbf{\makebox[2cm]{\hrulefill} \, / 10}}
+        \par \vspace{0.1cm} \tiny \color{Graphite} (CÁLCULO: SOMA DOS PONTOS $\div$ 7)
     \end{tcolorbox}
 \end{center}
 
-\vspace{1.0cm}
+\vspace{0.3cm}
 
-% --- SECTION 2: ATTITUDINAL CRITERIA ---
-\section{2. Critérios Atitudinais}
+% --- SECTION 2: ATTITUDINAL CRITERIA CARD ---
+\begin{tcolorbox}[executivecard]
+    \section{2. Critérios Atitudinais}
+    
+    \begin{minipage}[t]{0.48\textwidth}
+        \scriptsize \setstretch{1.2}
+        \begin{itemize}[leftmargin=*, label=\color{DeepNavy}\tiny$\blacksquare$]
+            \item \textbf{Pontualidade:} Cumprimento dos horários acordados.
+            \item \textbf{Assiduidade:} Compromisso com a presença.
+            \item \textbf{Motivação:} Proatividade e energia nas entregas.
+            \item \textbf{Comunicação:} Qualidade técnica do diálogo.
+        \end{itemize}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \scriptsize \setstretch{1.2}
+        \begin{itemize}[leftmargin=*, label=\color{DeepNavy}\tiny$\blacksquare$]
+            \item \textbf{Conduta Ética:} Postura e sigilo profissional.
+            \item \textbf{Segurança:} Autonomia e confiança técnica.
+            \item \textbf{Criatividade:} Soluções originais e iniciativa.
+        \end{itemize}
+    \end{minipage}
+\end{tcolorbox}
 
-\vspace{0.4cm}
-\begin{minipage}[t]{0.48\textwidth}
-    \scriptsize \setstretch{1.2}
-    \begin{itemize}[leftmargin=*, label=\color{DeepNavy}\tiny$\blacksquare$]
-        \item \textbf{Pontualidade:} Cumprimento dos horários.
-        \item \textbf{Assiduidade:} Frequência e comprometimento.
-        \item \textbf{Motivação:} Energia e interesse nas tarefas.
-        \item \textbf{Comunicação:} Diálogo e relações de equipe.
-    \end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-    \scriptsize \setstretch{1.2}
-    \begin{itemize}[leftmargin=*, label=\color{DeepNavy}\tiny$\blacksquare$]
-        \item \textbf{Conduta Ética:} Sigilo e postura profissional.
-        \item \textbf{Segurança:} Confiança e autonomia técnica.
-        \item \textbf{Criatividade:} Iniciativa em novas soluções.
-    \end{itemize}
-\end{minipage}
+\vfill
+\begin{center}
+    \tiny \color{Graphite!50} Gerado para Agência Experimental - Template Executivo v2.0
+\end{center}
 
 \end{document}
+
