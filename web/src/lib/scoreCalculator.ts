@@ -73,3 +73,25 @@ export function validateForm(data: {
   }
   return errors;
 }
+/**
+ * Determina o status do formulário para o indicador visual.
+ */
+export function getFormStatus(data: {
+  sprintNumber: string;
+  period: string;
+  internName: string;
+  deskProject: string;
+  competencyScores: CompetencyScores;
+}): 'idle' | 'filling' | 'completed' {
+  const isAnyFieldFilled = 
+    data.sprintNumber.trim() !== '' || 
+    data.period.trim() !== '' || 
+    data.internName.trim() !== '' || 
+    data.deskProject.trim() !== '' || 
+    getFilledCount(data.competencyScores) > 0;
+
+  if (!isAnyFieldFilled) return 'idle';
+  
+  const errors = validateForm(data);
+  return errors.length === 0 ? 'completed' : 'filling';
+}

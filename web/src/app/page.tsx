@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import ReportForm from '@/components/ReportForm';
 import ReportPreview from '@/components/ReportPreview';
 import { ReportFormData, EMPTY_FORM_DATA } from '@/types/report';
-import { validateForm } from '@/lib/scoreCalculator';
+import { validateForm, getFormStatus } from '@/lib/scoreCalculator';
 // Removidos jsPDF e html2canvas por incompatibilidade com CSS4 moderno (oklab)
 // A exportação ocorrerá nativamente para garantir tipografia vetorial
 
@@ -20,6 +20,8 @@ export default function Home() {
     () => true,
     () => false
   );
+
+  const formStatus = getFormStatus(formData);
 
   const handleFormChange = (newData: ReportFormData) => {
     setFormData(newData);
@@ -90,7 +92,11 @@ export default function Home() {
         <div className="lg:sticky lg:top-6 animate-in fade-in slide-in-from-right duration-1000 delay-200">
           <div className="mb-2 flex items-center justify-between">
             <h2 className="text-navy font-black text-xs uppercase tracking-widest flex items-center gap-2">
-               <span className="w-1.5 h-1.5 bg-navy rounded-full animate-pulse" />
+               <span className={`status-indicator ${
+                 formStatus === 'idle' ? 'status-idle' : 
+                 formStatus === 'filling' ? 'status-filling' : 
+                 'status-completed'
+               }`} />
                Prévia em Tempo Real
             </h2>
             <span className="text-graphite/40 text-[9px] font-bold">PAPEL A4 — 210 x 297 mm</span>
