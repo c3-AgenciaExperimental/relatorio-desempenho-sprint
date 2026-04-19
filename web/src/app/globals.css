@@ -39,7 +39,7 @@ body {
 
 /* Form Styles */
 .form-panel {
-  @apply bg-white rounded-xl shadow-lg border border-line-gray overflow-hidden;
+  @apply overflow-hidden;
 }
 
 .form-header {
@@ -103,7 +103,7 @@ body {
 }
 
 .criterion-row {
-  @apply p-4 rounded-xl border border-transparent hover:border-line-gray hover:bg-subtle-gray/30 transition-all;
+  @apply p-4 rounded-xl bg-subtle-gray/40 border border-line-gray/30 hover:border-line-gray hover:bg-subtle-gray/60 transition-all;
 }
 
 .criterion-name {
