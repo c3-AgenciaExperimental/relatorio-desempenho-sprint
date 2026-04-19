@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-50: #e6f0ff;
+  --color-navy-100: #003770;
+  --color-navy-200: #002d5c;
+  --color-navy-800: #00172e;
+  --color-navy-900: #000a14;
+  --color-navy: #001f3f;
+  --color-graphite: #3c3c3c;
+  --color-subtle-gray: #f5f5f7;
+  --color-line-gray: #dcdce1;
+}
+
+:root {
+  --navy: #001f3f;
+  --navy-100: #003770;
+  --navy-800: #00172e;
+  --graphite: #3c3c3c;
+  --subtle-gray: #f5f5f7;
+  --line-gray: #dcdce1;
+  --white: #ffffff;
+}
+
+body {
+  background-color: #f0f2f5;
+  color: var(--graphite);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Layout Utilities */
+.glass-container {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line-gray);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Form Styles */
+.form-panel {
+  @apply bg-white rounded-xl shadow-lg border border-line-gray overflow-hidden;
+}
+
+.form-header {
+  @apply bg-navy text-white p-6 flex items-center gap-4;
+}
+
+.form-header-icon {
+  @apply w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center;
+}
+
+.form-title {
+  @apply text-xl font-bold;
+}
+
+.form-subtitle {
+  @apply text-xs text-white/70 uppercase tracking-widest;
+}
+
+.form-section {
+  @apply p-6 border-b border-line-gray last:border-0;
+}
+
+.section-label {
+  @apply flex items-center gap-3 mb-6;
+}
+
+.section-number {
+  @apply w-8 h-8 rounded-full bg-navy/5 text-navy font-bold flex items-center justify-center text-sm;
+}
+
+.section-label h3 {
+  @apply text-lg font-bold text-navy;
+}
+
+.input-label {
+  @apply block text-sm font-semibold text-graphite mb-2;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 border border-line-gray rounded-lg focus:ring-2 focus:ring-navy/20 focus:border-navy outline-none transition-all;
+}
+
+.input-grid-2 {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.progress-badge {
+  @apply px-3 py-1 bg-navy/5 text-navy text-xs font-bold rounded-full;
+}
+
+.progress-bar-wrap {
+  @apply w-full h-1.5 bg-subtle-gray rounded-full mb-6 overflow-hidden;
+}
+
+.progress-bar-fill {
+  @apply h-full bg-navy transition-all duration-500 ease-out;
+}
+
+.criteria-list {
+  @apply space-y-4;
+}
+
+.criterion-row {
+  @apply p-4 rounded-xl border border-transparent hover:border-line-gray hover:bg-subtle-gray/30 transition-all;
+}
+
+.criterion-name {
+  @apply font-semibold text-graphite mb-3;
+}
+
+.score-options {
+  @apply flex flex-wrap gap-2;
+}
+
+.score-btn {
+  @apply flex-1 min-w-[100px] border border-line-gray rounded-lg p-2 text-center transition-all cursor-pointer bg-white hover:border-navy/40;
+}
+
+.score-btn-label {
+  @apply block text-[10px] font-bold uppercase tracking-wider text-graphite/60;
+}
+
+.score-btn-pts {
+  @apply block text-xs font-semibold;
+}
+
+.score-btn-selected {
+  @apply border-navy bg-navy text-white ring-2 ring-navy/20;
+}
+
+.score-btn-selected .score-btn-label {
+  @apply text-white/80;
+}
+
+.form-actions {
+  @apply p-6 bg-subtle-gray flex items-center justify-between gap-4;
+}
+
+.btn-clear {
+  @apply flex items-center gap-2 px-4 py-2 text-sm font-semibold text-graphite/60 hover:text-red-600 transition-colors;
+}
+
+.btn-pdf {
+  @apply flex items-center gap-2 px-6 py-3 bg-navy text-white font-bold rounded-lg hover:bg-navy/90 hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* Alert Styles */
+.alert-error {
+  @apply m-6 p-4 bg-red-50 border border-red-100 rounded-lg flex gap-3 text-red-800 animate-pulse;
+}
+
+.alert-error-icon {
+  @apply shrink-0 w-6 h-6 bg-red-100 rounded-full flex items-center justify-center font-bold;
+}
+
+.alert-error-title {
+  @apply font-bold text-sm;
+}
+
+.alert-error-list {
+  @apply text-xs list-disc list-inside mt-1;
+}
+
+/* Preview Styles (LaTeX-like) */
+.preview-container {
+  @apply sticky top-6 origin-top w-full overflow-visible pb-12;
+}
+
+.document-page {
+  @apply bg-white flex flex-col shadow-[0_0_40px_rgba(0,0,0,0.1)] mx-auto;
+  width: 100%;
+  max-width: 800px;
+  
+  /* A marretada final: forçar as propriedades a serem auto para que NUNCA 
+     o fundo branco corte antes do conteúdo acabar, superando estilos cacheados */
+  aspect-ratio: auto !important;
+  height: auto !important;
+  min-height: 100% !important; 
+  padding-bottom: 2rem; /* Garante espaço no final caso flexbox falhe */
+  box-sizing: border-box;
+}
+
+.preview-header {
+  @apply bg-navy text-white flex justify-between items-start w-full;
+  padding: 1.5rem 2rem; /* Mais compacto verticalmente */
+  box-sizing: border-box;
+}
+
+.preview-body {
+  @apply flex-1 flex flex-col;
+  padding: 1.5rem 2rem; /* Mais compacto para evitar scroll longo */
+  box-sizing: border-box;
+}
+
+.preview-section-title {
+  @apply text-xl font-bold text-navy uppercase tracking-wider border-b-2 border-navy/10 pb-2 mb-6 flex items-center justify-between;
+}
+
+.preview-table {
+  @apply w-full border-collapse mb-8;
+  table-layout: fixed;
+}
+
+.preview-table th {
+  @apply bg-navy text-white text-[9px] md:text-[10px] font-bold p-2 text-center border border-navy/10 tracking-wider uppercase break-words;
+}
+
+.preview-table td {
+  @apply p-2 sm:p-3 text-xs md:text-[13px] border border-line-gray leading-normal text-graphite break-words;
+}
+
+.score-dot {
+  @apply w-4 h-4 rounded-full mx-auto border-2 border-line-gray flex items-center justify-center;
+}
+
+.score-dot-active {
+  @apply bg-navy border-navy;
+}
+
+.widget-card {
+  @apply border border-line-gray rounded-sm p-4 text-center my-6 shadow-sm;
+}
+
+.attitudinal-grid {
+  @apply grid grid-cols-2 gap-x-8 gap-y-2 text-[10px] leading-relaxed;
+}
+
+.attitudinal-item {
+  @apply flex items-start gap-2;
+}
+
+.attitudinal-square {
+  @apply w-2 h-2 bg-navy shrink-0 mt-1;
+}
+
+/* Animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Scrollbar setup */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--subtle-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c0c0c5;
+}
