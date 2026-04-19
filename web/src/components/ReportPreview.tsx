@@ -50,7 +50,7 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
         
         <div className="preview-body">
           {/* --- IDENTIFICATION DATA --- */}
-        <div className="border border-line-gray rounded-sm p-3 mb-4 bg-subtle-gray/30">
+        <div className="border border-line-gray rounded-sm p-3 mb-4 bg-[rgba(245,245,247,0.3)]">
           <div className="grid grid-cols-2 gap-4">
             <div className="flex items-baseline gap-2">
               <span className="text-[10px] font-bold uppercase text-navy shrink-0">Estagiário(a):</span>
@@ -122,10 +122,10 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
         <div className="flex justify-center mb-4">
           <div className="border-2 border-navy p-4 w-full max-w-[300px] text-center rounded-lg shadow-md relative overflow-hidden">
             <div className="absolute top-0 left-0 w-1 h-full bg-navy" />
-            <span className="text-[10px] font-black uppercase text-navy/60 block mb-1">Performance Score Final</span>
+            <span className="text-[10px] font-black uppercase text-[rgba(0,31,63,0.6)] block mb-1">Performance Score Final</span>
             <div className="flex items-center justify-center gap-2">
               <span className="text-5xl font-black text-navy">{finalScore}</span>
-              <span className="text-2xl text-navy/30 font-light translate-y-1">/ 10</span>
+              <span className="text-2xl text-[rgba(0,31,63,0.3)] font-light translate-y-1">/ 10</span>
             </div>
             <div className="mt-3">
                <span 
@@ -135,7 +135,7 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
                  {quality.label}
                </span>
             </div>
-            <div className="mt-3 text-[8px] text-graphite/40 font-medium">
+            <div className="mt-3 text-[8px] text-[rgba(60,60,60,0.4)] font-medium">
               (CÁLCULO: SOMA DOS PONTOS ÷ 7)
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
                 <div className="attitudinal-square" />
                 <div>
                   <span className="font-bold">{criterion.title}:</span>{' '}
-                  <span className="text-graphite/80">{criterion.description}</span>
+                  <span className="text-[rgba(60,60,60,0.8)]">{criterion.description}</span>
                 </div>
               </div>
             ))}
@@ -162,7 +162,7 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
 
         {/* --- FOOTER --- */}
         <div className="mt-auto border-t border-line-gray pt-2 text-center">
-          <p className="text-[8px] text-graphite/40 uppercase tracking-widest font-semibold">
+          <p className="text-[8px] text-[rgba(60,60,60,0.4)] uppercase tracking-widest font-semibold">
             Gerado para Agência Experimental — Relatório Executivo de Performance v2.0
           </p>
         </div>

@@ -195,7 +195,7 @@ body {
 }
 
 .preview-section-title {
-  @apply text-xl font-bold text-navy uppercase tracking-wider border-b-2 border-navy/10 pb-2 mb-6 flex items-center justify-between;
+  @apply text-xl font-bold text-navy uppercase tracking-wider border-b-2 border-[rgba(0,31,63,0.1)] pb-2 mb-6 flex items-center justify-between;
 }
 
 .preview-table {
@@ -204,11 +204,41 @@ body {
 }
 
 .preview-table th {
-  @apply bg-navy text-white text-[9px] md:text-[10px] font-bold p-2 text-center border border-navy/10 tracking-wider uppercase break-words;
+  @apply bg-navy text-white text-[9px] md:text-[10px] font-bold p-2 text-center border border-[rgba(0,31,63,0.1)] tracking-wider uppercase break-words;
 }
 
 .preview-table td {
   @apply p-2 sm:p-3 text-xs md:text-[13px] border border-line-gray leading-normal text-graphite break-words;
+}
+
+@media print {
+  @page { margin: 0; size: A4 portrait; }
+  body { 
+    margin: 0; 
+    -webkit-print-color-adjust: exact !important; 
+    print-color-adjust: exact !important; 
+    background-color: white !important;
+  }
+  
+  .preview-container { 
+    padding: 0 !important; 
+    margin: 0 !important; 
+    top: 0 !important; 
+    position: static !important; 
+  }
+  
+  .document-page { 
+    box-shadow: none !important; 
+    border: none !important; 
+    max-width: none !important; 
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  
+  /* Esconde o título "Previa em Tempo Real" do form que vazou */
+  .lg\:sticky.lg\:top-6 > div:first-child {
+    display: none !important;
+  }
 }
 
 .score-dot {

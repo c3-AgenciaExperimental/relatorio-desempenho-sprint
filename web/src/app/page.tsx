@@ -8,8 +8,8 @@ import ReportForm from '@/components/ReportForm';
 import ReportPreview from '@/components/ReportPreview';
 import { ReportFormData, EMPTY_FORM_DATA } from '@/types/report';
 import { validateForm } from '@/lib/scoreCalculator';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+// Removidos jsPDF e html2canvas por incompatibilidade com CSS4 moderno (oklab)
+// A exportação ocorrerá nativamente para garantir tipografia vetorial
 
 export default function Home() {
   const [formData, setFormData] = useState<ReportFormData>(EMPTY_FORM_DATA);
@@ -51,43 +51,16 @@ export default function Home() {
       const element = document.getElementById('report-preview-document');
       if (!element) throw new Error('Preview element not found');
 
-      // Temporariamente removemos o sticky para evitar bugs de captura no html2canvas
-      const originalPosition = element.style.position;
-      element.style.position = 'relative';
-      element.style.top = '0';
-
-      const canvas = await html2canvas(element, {
-        scale: 3,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
-        windowWidth: 1200, // Força uma largura estável para a captura
-      });
-
-      // Restauramos o estado original
-      element.style.position = originalPosition;
-      element.style.top = '';
-
-      const imgData = canvas.toDataURL('image/png');
+      // Em vez de html2canvas (que quebra com CSS4 oklab do Tailwind v4), 
+      // delegamos para o renderizador de impressão nativo do browser que suporta vetores reais (PDF selecionável e sem borrões).
       
-      // Criar PDF no formato A4
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-      });
-
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      
-      const fileName = `Relatorio_Sprint_${formData.sprintNumber || 'XX'}_${formData.internName.replace(/\s+/g, '_')}.pdf`;
-      pdf.save(fileName);
+      // Um pequeno delay para dar tempo do loading rodar na UI antes de abrir a janela síncrona
+      await new Promise(resolve => setTimeout(resolve, 300));
+      window.print();
 
     } catch (error) {
-      console.error('Erro ao gerar PDF:', error);
-      alert('Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.');
+      console.error('Erro ao preparar PDF:', error);
+      alert('Ocorreu um erro ao preparar a exportação. Por favor, tente novamente.');
     } finally {
       setIsGenerating(false);
     }
@@ -96,11 +69,13 @@ export default function Home() {
   if (!isClient) return null;
 
   return (
-    <main className="min-h-screen py-6 md:py-8">
-
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        {/* Lado Esquerdo: Formulário */}
-        <div className="lg:sticky lg:top-8 animate-in fade-in slide-in-from-left duration-700">
+    <main className="min-h-screen py-6 md:py-8 print:py-0 print:min-h-0">
+      {/* Container Principal */}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 print:px-0 print:max-w-none">
+        <div className="flex flex-col lg:flex-row gap-8 items-start relative print:block">
+          
+          {/* COLUNA ESQUERDA: Formulário - ESCONDIDA NA IMPRESSÃO */}
+          <div className="w-full lg:w-[450px] shrink-0 p-4 sm:p-6 bg-white border border-line-gray rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] print:hidden">
            <ReportForm 
             data={formData} 
             onChange={handleFormChange}
@@ -121,9 +96,9 @@ export default function Home() {
             <span className="text-graphite/40 text-[9px] font-bold">PAPEL A4 — 210 x 297 mm</span>
           </div>
           <ReportPreview data={formData} />
-        </div>
       </div>
-
+      </div>
+      </div>
     </main>
   );
 }
