@@ -19,7 +19,25 @@ interface ReportPreviewProps {
 
 export default function ReportPreview({ data }: ReportPreviewProps) {
   const finalScore = calculateFinalScore(data.competencyScores);
+  const formattedScore = finalScore.toFixed(1).replace('.', ',');
   const quality = getScoreQualityLabel(finalScore);
+
+  const formatPeriod = (periodStr: string) => {
+    if (!periodStr) return '—';
+    const parts = periodStr.split('|');
+    if (parts.length !== 2) return periodStr; // fallback for old data format
+    const formatDate = (dateStr: string) => {
+      if (!dateStr) return '';
+      const [y, m, d] = dateStr.split('-');
+      return `${d}/${m}/${y}`;
+    };
+    const start = formatDate(parts[0]);
+    const end = formatDate(parts[1]);
+    if (start && end) return `${start} até ${end}`;
+    if (start) return `A partir de ${start}`;
+    if (end) return `Até ${end}`;
+    return '—';
+  };
 
   return (
     <div className="preview-container" id="report-preview-document">
@@ -29,7 +47,7 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
           <div>
             <h1 className="text-3xl font-extrabold tracking-tighter">Agência Experimental</h1>
             <p className="text-[10px] font-medium tracking-[0.2em] opacity-80 uppercase mt-1">
-              Relatório Executivo de Performance
+              Relatório de Avaliação
             </p>
           </div>
           <div className="text-right space-y-2">
@@ -42,7 +60,7 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
             <div className="flex items-center justify-end gap-3">
               <span className="text-[10px] font-black uppercase">Período</span>
               <span className="min-w-[120px] border-b border-white px-2 text-base font-bold">
-                {data.period || '—'}
+                {formatPeriod(data.period)}
               </span>
             </div>
           </div>
@@ -50,7 +68,7 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
         
         <div className="preview-body">
           {/* --- IDENTIFICATION DATA --- */}
-        <div className="border border-line-gray rounded-sm p-3 mb-4 bg-[rgba(245,245,247,0.3)]">
+        <div className="border border-line-gray rounded-xl p-3 mb-4 bg-[rgba(245,245,247,0.3)]">
           <div className="grid grid-cols-2 gap-4">
             <div className="flex items-baseline gap-2">
               <span className="text-[10px] font-bold uppercase text-navy shrink-0">Estagiário(a):</span>
@@ -59,7 +77,7 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
               </span>
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-[10px] font-bold uppercase text-navy shrink-0">Mesa/Projeto:</span>
+              <span className="text-[10px] font-bold uppercase text-navy shrink-0">Projeto:</span>
               <span className="text-sm border-b border-line-gray flex-1 italic break-words">
                 {data.deskProject || '...'}
               </span>
@@ -97,7 +115,7 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
                     {SCORE_OPTIONS.map((opt) => (
                       <td key={opt.label} className="text-center">
                         <div
-                          className={`w-4 h-4 mx-auto border flex items-center justify-center rounded-sm ${
+                          className={`w-4 h-4 mx-auto border flex items-center justify-center rounded-md ${
                             selectedLabel === opt.label 
                               ? 'bg-navy border-navy' 
                               : 'border-line-gray'
@@ -120,11 +138,11 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
 
         {/* --- PERFORMANCE SCORE WIDGET --- */}
         <div className="flex justify-center mb-4">
-          <div className="border-2 border-navy p-4 w-full max-w-[300px] text-center rounded-lg shadow-md relative overflow-hidden">
+          <div className="border-2 border-navy p-4 w-full max-w-[300px] text-center rounded-2xl shadow-md relative overflow-hidden">
             <div className="absolute top-0 left-0 w-1 h-full bg-navy" />
-            <span className="text-[10px] font-black uppercase text-[rgba(0,31,63,0.6)] block mb-1">Performance Score Final</span>
+            <span className="text-[10px] font-black uppercase text-[rgba(0,31,63,0.6)] block mb-1">Nota da Sprint {data.sprintNumber || ''}</span>
             <div className="flex items-center justify-center gap-2">
-              <span className="text-5xl font-black text-navy">{finalScore}</span>
+              <span className="text-5xl font-black text-navy">{formattedScore}</span>
               <span className="text-2xl text-[rgba(0,31,63,0.3)] font-light translate-y-1">/ 10</span>
             </div>
             <div className="mt-3">
@@ -158,13 +176,6 @@ export default function ReportPreview({ data }: ReportPreviewProps) {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* --- FOOTER --- */}
-        <div className="mt-auto border-t border-line-gray pt-2 text-center">
-          <p className="text-[8px] text-[rgba(60,60,60,0.4)] uppercase tracking-widest font-semibold">
-            Gerado para Agência Experimental — Relatório Executivo de Performance v2.0
-          </p>
         </div>
         </div>
       </div>

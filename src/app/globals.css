@@ -47,7 +47,7 @@ body {
 }
 
 .form-header-icon {
-  @apply w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center;
+  @apply w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center;
 }
 
 .form-title {
@@ -79,7 +79,7 @@ body {
 }
 
 .input-field {
-  @apply w-full px-4 py-2 border border-line-gray rounded-lg focus:ring-2 focus:ring-navy/20 focus:border-navy outline-none transition-all;
+  @apply w-full px-4 py-2 border border-line-gray rounded-xl focus:ring-2 focus:ring-navy/20 focus:border-navy outline-none transition-all;
 }
 
 .input-grid-2 {
@@ -103,7 +103,7 @@ body {
 }
 
 .criterion-row {
-  @apply p-4 rounded-xl bg-subtle-gray/40 border border-line-gray/30 hover:border-line-gray hover:bg-subtle-gray/60 transition-all;
+  @apply p-4 rounded-2xl bg-subtle-gray/40 border border-line-gray/30 hover:border-line-gray hover:bg-subtle-gray/60 transition-all;
 }
 
 .criterion-name {
@@ -115,7 +115,7 @@ body {
 }
 
 .score-btn {
-  @apply flex-1 min-w-[100px] border border-line-gray rounded-lg p-2 text-center transition-all cursor-pointer bg-white hover:border-navy/40;
+  @apply flex-1 min-w-[100px] border border-line-gray rounded-xl p-2 text-center transition-all cursor-pointer bg-white hover:border-navy/40;
 }
 
 .score-btn-label {
@@ -143,12 +143,12 @@ body {
 }
 
 .btn-pdf {
-  @apply flex items-center gap-2 px-6 py-3 bg-navy text-white font-bold rounded-lg hover:bg-navy/90 hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply flex items-center gap-2 px-6 py-3 bg-navy text-white font-bold rounded-xl hover:bg-navy/90 hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 /* Alert Styles */
 .alert-error {
-  @apply m-6 p-4 bg-red-50 border border-red-100 rounded-lg flex gap-3 text-red-800 animate-pulse;
+  @apply m-6 p-4 bg-red-50 border border-red-100 rounded-2xl flex gap-3 text-red-800 animate-pulse;
 }
 
 .alert-error-icon {
@@ -165,11 +165,11 @@ body {
 
 /* Preview Styles (LaTeX-like) */
 .preview-container {
-  @apply sticky top-6 origin-top w-full overflow-visible pb-12;
+  @apply origin-top w-full overflow-visible pb-12;
 }
 
 .document-page {
-  @apply bg-white flex flex-col shadow-[0_0_40px_rgba(0,0,0,0.1)] mx-auto;
+  @apply bg-white flex flex-col shadow-[0_0_40px_rgba(0,0,0,0.1)] mx-auto rounded-xl overflow-hidden;
   width: 100%;
   max-width: 800px;
   
@@ -230,6 +230,7 @@ body {
   .document-page { 
     box-shadow: none !important; 
     border: none !important; 
+    border-radius: 0 !important;
     max-width: none !important; 
     margin: 0 !important;
     padding-bottom: 0 !important;

@@ -4,6 +4,18 @@
 // ============================================================
 
 import React from 'react';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { ptBR } from 'date-fns/locale';
+registerLocale('pt-BR', ptBR);
+
+const parseDate = (str: string | undefined): Date | undefined => {
+  if (!str) return undefined;
+  const [y, m, d] = str.split('-').map(Number);
+  if (!y || !m || !d) return undefined;
+  return new Date(y, m - 1, d);
+};
+
 import {
   ReportFormData,
   SCORE_OPTIONS,
@@ -58,7 +70,7 @@ export default function ReportForm({
         </div>
         <div>
           <h2 className="form-title">Preenchimento do Relatório</h2>
-          <p className="form-subtitle">Agência Experimental · Avaliação de Sprint</p>
+          <p className="form-subtitle">Avaliação de Sprint</p>
         </div>
       </div>
 
@@ -85,24 +97,35 @@ export default function ReportForm({
         <div className="input-grid-2">
           <div className="input-group">
             <label className="input-label" htmlFor="sprintNumber">Sprint Nº</label>
-            <input
+            <select
               id="sprintNumber"
-              type="text"
               className="input-field"
-              placeholder="ex: 01"
               value={data.sprintNumber}
               onChange={(e) => handleIdentityChange('sprintNumber', e.target.value)}
-            />
+            >
+              <option value="" disabled>Selecione...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
           </div>
           <div className="input-group">
-            <label className="input-label" htmlFor="period">Período</label>
-            <input
-              id="period"
-              type="text"
-              className="input-field"
-              placeholder="ex: Mar — Abr 2026"
-              value={data.period}
-              onChange={(e) => handleIdentityChange('period', e.target.value)}
+            <label className="input-label">Período</label>
+            <DatePicker
+              selectsRange={true}
+              startDate={parseDate((data.period || '').split('|')[0])}
+              endDate={parseDate((data.period || '').split('|')[1])}
+              onChange={(update: [Date | null, Date | null]) => {
+                const startStr = update[0] ? `${update[0].getFullYear()}-${String(update[0].getMonth() + 1).padStart(2, '0')}-${String(update[0].getDate()).padStart(2, '0')}` : '';
+                const endStr = update[1] ? `${update[1].getFullYear()}-${String(update[1].getMonth() + 1).padStart(2, '0')}-${String(update[1].getDate()).padStart(2, '0')}` : '';
+                handleIdentityChange('period', `${startStr}|${endStr}`);
+              }}
+              locale="pt-BR"
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Selecione o início e o fim"
+              className="input-field w-full"
+              isClearable={true}
             />
           </div>
         </div>
@@ -116,16 +139,21 @@ export default function ReportForm({
               className="input-field"
               placeholder="Nome completo"
               value={data.internName}
-              onChange={(e) => handleIdentityChange('internName', e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (!/\d/.test(val)) {
+                  handleIdentityChange('internName', val);
+                }
+              }}
             />
           </div>
           <div className="input-group">
-            <label className="input-label" htmlFor="deskProject">Mesa / Projeto</label>
+            <label className="input-label" htmlFor="deskProject">Projeto</label>
             <input
               id="deskProject"
               type="text"
               className="input-field"
-              placeholder="ex: Mesa de Comunicação Digital"
+              placeholder="Nome do projeto"
               value={data.deskProject}
               onChange={(e) => handleIdentityChange('deskProject', e.target.value)}
             />
