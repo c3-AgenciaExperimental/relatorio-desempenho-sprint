@@ -77,7 +77,7 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row gap-8 items-start relative print:block">
           
           {/* COLUNA ESQUERDA: Formulário - ESCONDIDA NA IMPRESSÃO */}
-          <div className="w-full lg:w-[550px] shrink-0 p-4 sm:p-6 bg-white border border-line-gray rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] print:hidden">
+          <div className="w-full lg:w-[550px] shrink-0 overflow-hidden bg-white border border-line-gray rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] print:hidden">
            <ReportForm 
             data={formData} 
             onChange={handleFormChange}

@@ -135,7 +135,7 @@ body {
 }
 
 .form-actions {
-  @apply p-6 bg-subtle-gray flex items-center justify-between gap-4;
+  @apply sticky bottom-0 p-6 bg-white/90 backdrop-blur-md border-t border-line-gray flex items-center justify-between gap-4 z-10;
 }
 
 .btn-clear {
