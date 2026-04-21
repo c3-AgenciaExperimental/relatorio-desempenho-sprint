@@ -62,15 +62,17 @@ export default function ReportForm({
   return (
     <div className="form-panel">
       {/* Header do formulário */}
-      <div className="form-header">
-        <div className="form-header-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
-        </div>
-        <div>
-          <h2 className="form-title">Preenchimento do Relatório</h2>
-          <p className="form-subtitle">Avaliação de Sprint</p>
+      <div className="form-header justify-between">
+        <div className="flex items-center gap-4">
+          <div className="form-header-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 className="form-title">Preenchimento do Relatório</h2>
+            <p className="form-subtitle">Avaliação de Sprint</p>
+          </div>
         </div>
       </div>
 
@@ -217,18 +219,18 @@ export default function ReportForm({
       <div className="form-actions">
         <button
           type="button"
-          className="btn-clear"
+          className="btn-clear w-full justify-center text-lg"
           onClick={onClear}
           id="btn-clear"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>
           </svg>
           Limpar
         </button>
         <button
           type="button"
-          className="btn-pdf"
+          className="btn-pdf w-full justify-center text-lg shadow-xl"
           onClick={onGeneratePDF}
           disabled={isGenerating}
           id="btn-generate-pdf"
